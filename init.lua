@@ -203,6 +203,7 @@ require('lazy').setup({
     branch = 'harpoon2',
     dependencies = { "nvim-lua/plenary.nvim" }
   },
+  "mbbill/undotree",
   {
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
@@ -500,9 +501,9 @@ vim.defer_fn(function()
       },
       swap = {
         enable = true,
-        swap_next = {
-          ['<leader>a'] = '@parameter.inner',
-        },
+        -- swap_next = {
+        --  ['<leader>a'] = '@parameter.inner',
+        -- },
         swap_previous = {
           ['<leader>A'] = '@parameter.inner',
         },
@@ -638,12 +639,6 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
-
---[[
---continue after dinner add the primeagens plugins as well as the fugitive config & we should
--- have a good starting point, also do configs & we'll be pretty close
---
---]]
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
