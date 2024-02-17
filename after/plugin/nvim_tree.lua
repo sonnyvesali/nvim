@@ -10,6 +10,9 @@ require("nvim-tree").setup()
 
 -- OR setup with some options
 require("nvim-tree").setup({
+	trash = {
+		cmd = "trash"
+	},
 	sort = {
 		sorter = "case_sensitive",
 	},
@@ -23,4 +26,3 @@ require("nvim-tree").setup({
 		dotfiles = true,
 	},
 })
-
