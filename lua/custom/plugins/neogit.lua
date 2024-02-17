@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>gs", ':lua require("neogit").open()<CR>')
+vim.keymap.set("n", "<leader>gs", ':lua require("neogit").open({kind = "auto"})<CR>')
 return {
 	"NeogitOrg/neogit",
 	dependencies = {
