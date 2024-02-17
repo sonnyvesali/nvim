@@ -12,4 +12,23 @@ vim.api.nvim_set_keymap('n', '<leader>tsm', ':lua require("neotest").summary.tog
 
 
 
-return {}
+return {
+	"nvim-neotest/neotest",
+	dependencies = {
+		'sidlatau/neotest-dart',
+		"nvim-lua/plenary.nvim",
+		"antoinemadec/FixCursorHold.nvim",
+		"nvim-treesitter/nvim-treesitter"
+	},
+	config = function()
+		require('neotest').setup({
+			adapters = {
+				require('neotest-dart') {
+					command = 'flutter',
+					use_lsp = true,
+					custom_test_method_names = {},
+				},
+			},
+		})
+	end,
+}

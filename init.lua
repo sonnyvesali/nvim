@@ -14,37 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end
-  },
-  {
-    "nvim-neotest/neotest",
-    dependencies = {
-      'sidlatau/neotest-dart',
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter"
-    },
-    config = function()
-      require('neotest').setup({
-        adapters = {
-          require('neotest-dart') {
-            command = 'flutter',
-            use_lsp = true,
-            custom_test_method_names = {},
-          },
-        },
-      })
-    end,
-
-  },
   "RobertBrunhage/dart-tools.nvim",
   {
     'akinsho/flutter-tools.nvim',
@@ -228,6 +197,7 @@ require('lazy').setup({
       require('onedark').setup {
         -- Set a style preset. 'dark' is default.
         style = 'darker', -- dark, darker, cool, deep, warm, warmer, light
+        transparent = true,
       }
       require('onedark').load()
     end,
