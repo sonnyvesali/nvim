@@ -15,17 +15,61 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      'sidlatau/neotest-dart',
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter"
+    },
+    config = function()
+      require('neotest').setup({
+        adapters = {
+          require('neotest-dart') {
+            command = 'flutter',
+            use_lsp = true,
+            custom_test_method_names = {},
+          },
+        },
+      })
+    end,
+
+  },
+  "RobertBrunhage/dart-tools.nvim",
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim',
+    },
+    config = true,
+  },
+  {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
+    opts = {},
   },
-
-
-  'tpope/vim-fugitive',
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+      "ibhagwan/fzf-lua",
+    },
+    config = true
+  },
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
   "Pocco81/auto-save.nvim",
@@ -52,8 +96,6 @@ require('lazy').setup({
     dependencies = {
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       opts = {} },
       'folke/neodev.nvim',
     },
@@ -70,16 +112,11 @@ require('lazy').setup({
     end
   },
   {
-    -- Autocompletion
     'hrsh7th/nvim-cmp',
     dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
       {
         'L3MON4D3/LuaSnip',
         build = (function()
-          -- Build Step is needed for regex support in snippets
-          -- This step is not supported in many windows environments
-          -- Remove the below condition to re-enable on windows
           if vim.fn.has 'win32' == 1 then
             return
           end
@@ -87,21 +124,14 @@ require('lazy').setup({
         end)(),
       },
       'saadparwaiz1/cmp_luasnip',
-      -- AI goodies
       "Exafunction/codeium.nvim",
-      -- Adds LSP completion capabilities
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
-
-      -- Adds a number of user-friendly snippets
       'rafamadriz/friendly-snippets',
     },
   },
-
-  -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
   {
-    -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
       -- See `:help gitsigns.txt`
@@ -629,7 +659,7 @@ mason_lspconfig.setup_handlers {
 -- See `:help cmp`
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load({ paths = './snippets' })
+require('luasnip.loaders.from_vscode').lazy_load({ paths = { "~/.config/nvim/snippets" } })
 luasnip.config.setup {}
 
 cmp.setup {
@@ -674,6 +704,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'codeium' },
   },
 }
 
