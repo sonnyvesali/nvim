@@ -1,3 +1,5 @@
-require('Comment').setup()
-
-return {}
+return {
+	'numToStr/Comment.nvim',
+	opts = {},
+	lazy = false,
+}
